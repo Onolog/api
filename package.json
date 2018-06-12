@@ -1,0 +1,35 @@
+{
+  "name": "@onolog/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "DEBUG=@onolog/api:* nodemon index.js",
+    "lint": "eslint .",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "debug": "^2.6.9",
+    "dotenv": "^5.0.1",
+    "express-jwt": "^5.3.1",
+    "graphql": "^0.13.2",
+    "graphql-relay": "^0.5.5",
+    "graphql-sequelize": "^8.1.3",
+    "graphql-yoga": "^1.14.6",
+    "moment": "^2.22.2",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.10",
+    "sequelize-auto": "^0.4.29"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-ericgio": "^2.2.0",
+    "nodemon": "^1.17.5"
+  },
+  "engines": {
+    "node": "8.6.0"
+  }
+}
