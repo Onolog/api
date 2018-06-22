@@ -1,16 +1,28 @@
 import {GraphQLObjectType, GraphQLSchema} from 'graphql';
 
-import models from '../models';
+import activities from './queries/activitiesQuery';
+import brands from './queries/brandsQuery';
+import shoes from './queries/shoesQuery';
+import user from './queries/userQuery';
+import userActivitySummary from './queries/userActivitySummaryQuery';
+import users from './queries/usersQuery';
+
 import mutations from './mutations';
-import queries from './queries';
 
 export default new GraphQLSchema({
   mutation: new GraphQLObjectType({
-    name: 'RootMutationType',
-    fields: mutations(models),
+    name: 'RootMutation',
+    fields: () => mutations,
   }),
   query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: queries(models),
+    name: 'RootQuery',
+    fields: () => ({
+      activities,
+      brands,
+      shoes: shoes(),
+      user,
+      userActivitySummary: userActivitySummary(),
+      users,
+    }),
   }),
 });

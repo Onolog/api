@@ -1,16 +1,11 @@
 import {GraphQLBoolean, GraphQLID, GraphQLNonNull} from 'graphql';
 import {resolver} from 'graphql-sequelize';
 
-import {UserInputType, UserType} from './types';
+import {User} from '../../models';
+import {UserInputType, UserType} from '../types';
+import {assertCanEdit} from '../utils';
 
-function assertCanEdit({user}, userId) {
-  if (user && (user.id === userId || user.admin)) {
-    return;
-  }
-  throw new Error('You do not have permission to update this user.');
-}
-
-const createUser = ({User}) => ({
+const createUser = () => ({
   type: UserType,
   args: {
     id: {
@@ -26,7 +21,7 @@ const createUser = ({User}) => ({
   },
 });
 
-const findOrCreateUser = ({User}) => ({
+const findOrCreateUser = () => ({
   type: UserType,
   args: {
     id: {
@@ -49,7 +44,7 @@ const findOrCreateUser = ({User}) => ({
   },
 });
 
-const updateUser = ({User}) => ({
+const updateUser = () => ({
   type: UserType,
   args: {
     id: {
@@ -72,7 +67,7 @@ const updateUser = ({User}) => ({
   },
 });
 
-const deleteUser = ({User}) => ({
+const deleteUser = () => ({
   type: new GraphQLNonNull(GraphQLBoolean),
   args: {
     id: {
@@ -91,9 +86,9 @@ const deleteUser = ({User}) => ({
   },
 });
 
-export default (models) => ({
-  createUser: createUser(models),
-  deleteUser: deleteUser(models),
-  findOrCreateUser: findOrCreateUser(models),
-  updateUser: updateUser(models),
-});
+export default {
+  createUser: createUser(),
+  deleteUser: deleteUser(),
+  findOrCreateUser: findOrCreateUser(),
+  updateUser: updateUser(),
+};

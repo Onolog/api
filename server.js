@@ -30,12 +30,10 @@ const server = new GraphQLServer({
 });
 
 // Require json web tokens to make requests in production.
-server.express.use(
-  jwt({
-    credentialsRequired: PROD,
-    secret: process.env.JWT_SECRET,
-  })
-);
+server.express.use(jwt({
+  credentialsRequired: PROD,
+  secret: process.env.JWT_SECRET,
+}));
 
 // Sync DB and start server.
 models.sequelize.sync().then(() => {

@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'user_id',
     },
     inactive: {
-      type: DataTypes.INTEGER(1),
+      type: DataTypes.BOOLEAN,
       allowNull: true,
       field: 'inactive',
     },
@@ -48,9 +48,10 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'shoes',
   });
 
-  Shoe.associate = ({Activity, Shoe, User}) => {
-    Shoe.belongsTo(User);
-    Shoe.hasMany(Activity);
+  Shoe.associate = ({Activity, Brand, Shoe, User}) => {
+    Shoe.belongsTo(Brand, {foreignKey: 'brand_id'});
+    Shoe.belongsTo(User, {foreignKey: 'user_id'});
+    Shoe.hasMany(Activity, {foreignKey: 'shoe_id'});
   };
 
   return Shoe;
