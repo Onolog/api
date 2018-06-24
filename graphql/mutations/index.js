@@ -21,7 +21,7 @@ const createUser = () => ({
   },
 });
 
-const findOrCreateUser = () => ({
+const login = () => ({
   type: UserType,
   args: {
     id: {
@@ -89,6 +89,6 @@ const deleteUser = () => ({
 export default {
   createUser: createUser(),
   deleteUser: deleteUser(),
-  findOrCreateUser: findOrCreateUser(),
+  login: login(),
   updateUser: updateUser(),
 };

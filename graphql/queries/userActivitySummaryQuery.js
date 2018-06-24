@@ -15,7 +15,7 @@ const userActivitySummaryQuery = () => ({
   args: {
     userId: {
       description: 'ID of user',
-      type: GraphQLID,
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   resolve: resolver(Activity, {

@@ -1,6 +1,7 @@
 import {
   GraphQLFloat,
   GraphQLInputObjectType,
+  GraphQLID,
   GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
@@ -43,6 +44,31 @@ export const ActivityType = new GraphQLObjectType({
       description: 'The user who created the activity.',
     },
   }),
+});
+
+export const GarminActivityType = new GraphQLObjectType({
+  name: 'GarminActivity',
+  description: 'An activity from Garmin Connect',
+  fields: () => {
+    // Omit non-Garmin fields.
+    const {
+      id,
+      friends,
+      notes,
+      shoe_id,
+      shoeId,
+      user_id,
+      userId,
+      ...activityFields,
+    } = attributeFields(Activity);
+
+    return {
+      ...activityFields,
+      garminActivityId: {
+        type: new GraphQLNonNull(GraphQLID),
+      },
+    }
+  },
 });
 
 export const ActivitySummaryType = new GraphQLObjectType({
