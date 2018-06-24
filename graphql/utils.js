@@ -2,7 +2,7 @@ const METERS_PER_MILE = 1609.35;
 const FEET_PER_METER = 3.28084;
 
 export const assertCanEdit = ({user}, userId) => {
-  if (user && (user.id === userId || user.admin)) {
+  if (user && (getId(user.id) === getId(userId) || user.admin)) {
     return;
   }
   throw new Error('You do not have permission to update this user.');

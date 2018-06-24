@@ -57,13 +57,12 @@ const updateUser = () => ({
   resolve: async(root, {id, input}, context) => {
     assertCanEdit(context, id);
 
-    const user = await User.findById(id);
-
-    if (user) {
+    try {
+      const user = await User.findById(id);
       return await user.update(input);
+    } catch (err) {
+      throw Error(err);
     }
-
-    throw Error('There are no users with that ID.');
   },
 });
 
@@ -76,13 +75,13 @@ const deleteUser = () => ({
   },
   resolve: async function(root, {id}, context) {
     assertCanEdit(context, id);
-    const user = await User.findById(id);
 
-    if (user) {
+    try {
+      const user = await User.findById(id);
       return await user.destroy();
+    } catch (err) {
+      throw Error(err);
     }
-
-    throw Error('There are no users with that ID.');
   },
 });
 

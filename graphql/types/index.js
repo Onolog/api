@@ -160,24 +160,34 @@ export const ShoesType = new GraphQLObjectType({
 export const UserInputType = new GraphQLInputObjectType({
   name: 'UserInput',
   description: 'The user fields that may be created or updated.',
-  fields: () => ({
-    firstName: {
-      description: 'The user\'s first name',
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    lastName: {
-      description: 'The user\'s last name',
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    email: {
-      description: 'The user\'s email address',
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    location: {
-      description: 'The user\'s lcation (city & state/province)',
-      type: GraphQLString,
-    },
-  }),
+  fields: () => {
+    return {
+      firstName: {
+        description: 'The user\'s first name',
+        type: GraphQLString,
+      },
+      lastName: {
+        description: 'The user\'s last name',
+        type: GraphQLString,
+      },
+      email: {
+        description: 'The user\'s email address',
+        type: GraphQLString,
+      },
+      distanceUnits: {
+        description: 'The units of distance to use (miles or kilometers)',
+        type: GraphQLInt,
+      },
+      location: {
+        description: 'The user\'s location (city & state/province)',
+        type: GraphQLString,
+      },
+      timezone: {
+        description: 'The user\'s timezone',
+        type: GraphQLString,
+      },
+    };
+  },
 });
 
 export const UserType = new GraphQLObjectType({
