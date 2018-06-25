@@ -1,5 +1,4 @@
-const METERS_PER_MILE = 1609.35;
-const FEET_PER_METER = 3.28084;
+import {FEET_PER_METER, METERS_PER_MILE} from './constants';
 
 export const assertCanEdit = ({user}, userId) => {
   if (user && (getId(user.id) === getId(userId) || user.admin)) {

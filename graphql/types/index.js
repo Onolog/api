@@ -59,7 +59,7 @@ export const GarminActivityType = new GraphQLObjectType({
       shoeId,
       user_id,
       userId,
-      ...activityFields,
+      ...activityFields
     } = attributeFields(Activity);
 
     return {
@@ -67,7 +67,53 @@ export const GarminActivityType = new GraphQLObjectType({
       garminActivityId: {
         type: new GraphQLNonNull(GraphQLID),
       },
-    }
+    };
+  },
+});
+
+export const GarminActivityDetailType = new GraphQLObjectType({
+  name: 'GarminActivityDetail',
+  description: 'A single activity detail point for a Garmin activity',
+  fields: {
+    sumElapsedDuration: {
+      type: GraphQLInt,
+    },
+    sumMovingDuration: {
+      type: GraphQLInt,
+    },
+    directLongitude: {
+      type: GraphQLFloat,
+    },
+    sumDistance: {
+      type: GraphQLFloat,
+    },
+    directTimestamp: {
+      type: GraphQLString,
+    },
+    sumDuration: {
+      type: GraphQLInt,
+    },
+    directCorrectedElevation: {
+      type: GraphQLFloat,
+    },
+    directLatitude: {
+      type: GraphQLFloat,
+    },
+    directHeartRate: {
+      type: GraphQLInt,
+    },
+    directUncorrectedElevation: {
+      type: GraphQLFloat,
+    },
+    directSpeed: {
+      type: GraphQLFloat,
+    },
+    directElevation: {
+      type: GraphQLFloat,
+    },
+    directVerticalSpeed: {
+      type: GraphQLFloat,
+    },
   },
 });
 

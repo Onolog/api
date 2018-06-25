@@ -3,6 +3,7 @@ import {GraphQLObjectType, GraphQLSchema} from 'graphql';
 import activities from './queries/activitiesQuery';
 import brands from './queries/brandsQuery';
 import garminActivity from './queries/garminActivityQuery';
+import garminActivityDetails from './queries/garminActivityDetailsQuery';
 import shoes from './queries/shoesQuery';
 import user from './queries/userQuery';
 import userActivitySummary from './queries/userActivitySummaryQuery';
@@ -21,6 +22,7 @@ export default new GraphQLSchema({
       activities,
       brands,
       garminActivity,
+      garminActivityDetails,
       shoes: shoes(),
       user,
       userActivitySummary: userActivitySummary(),

@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 import {GarminActivityType} from '../types';
 import {metersToFeet, metersToMiles} from '../utils';
 
-const URL = 'https://connect.garmin.com/proxy/activity-service/activity/';
+import {GARMIN_ACTIVITY_URL} from '../constants';
 
 // Normalizes activity data pulled from Garmin's endpoints.
 function garminUrlToActivity(activity) {
@@ -50,8 +50,8 @@ const garminActivityQuery = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: async (options, {garminActivityId}, context) => {
-    const res = await fetch(`${URL}${garminActivityId}`);
+  resolve: async(options, {garminActivityId}, context) => {
+    const res = await fetch(`${GARMIN_ACTIVITY_URL}/${garminActivityId}`);
     const data = await res.json();
 
     return garminUrlToActivity(data);
