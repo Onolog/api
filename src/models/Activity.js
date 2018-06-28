@@ -91,9 +91,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Activity.associate = ({Activity, Shoe, Split, User}) => {
-    Activity.belongsTo(User, {foreignKey: 'user_id'});
-    Activity.belongsTo(Shoe, {foreignKey: 'shoe_id'});
-    Activity.hasMany(Split, {foreignKey: 'activity_id'});
+    Activity.User = Activity.belongsTo(User, {foreignKey: 'user_id'});
+    Activity.Shoe = Activity.belongsTo(Shoe, {foreignKey: 'shoe_id'});
+    Activity.Splits = Activity.hasMany(Split, {foreignKey: 'activity_id'});
   };
 
   return Activity;

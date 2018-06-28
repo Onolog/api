@@ -8,47 +8,63 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import {attributeFields} from 'graphql-sequelize';
+import {attributeFields, resolver} from 'graphql-sequelize';
+import {pick} from 'lodash';
 
-import activitiesQuery from '../queries/activitiesQuery';
-import shoesQuery from '../queries/shoesQuery';
-import userActivitySummaryQuery from '../queries/userActivitySummaryQuery';
+import {Activity, Brand, Shoe, User} from '../models';
 
-import {Activity, Brand, Shoe, User} from '../../models';
+import addShoeName from '../utils/addShoeName';
+import getActivityObject from '../utils/getActivityObject';
+import getGarminActivityDetails from '../utils/getGarminActivityDetails';
+import summarizeActivities from '../utils/summarizeActivities';
 
-const ActivityCountField = {
+const CountField = {
   count: {
     type: new GraphQLNonNull(GraphQLInt),
-    description: 'The total number of activities',
   },
 };
 
-const ActivitySumDistanceField = {
+const NodesField = (type) => ({
+  nodes: {
+    type: new GraphQLList(type),
+  },
+});
+
+const SumDistanceField = {
   sumDistance: {
     type: new GraphQLNonNull(GraphQLFloat),
-    description: 'The total distance of the activities',
   },
 };
 
 export const ActivityType = new GraphQLObjectType({
   name: 'Activity',
-  description: 'An activity',
   fields: () => ({
     ...attributeFields(Activity),
+    details: {
+      type: new GraphQLList(GarminActivityDetailType),
+      resolve: (options, args, context) => (
+        getGarminActivityDetails(options.garminActivityId)
+      ),
+    },
     shoe: {
       type: ShoeType,
-      description: 'The shoe used in the activity.',
+      resolve: resolver(Activity.Shoe, {
+        before: (options, args, context) => ({
+          ...options,
+          include: [{model: Brand}],
+        }),
+        after: addShoeName,
+      }),
     },
     user: {
-      type: UserType,
-      description: 'The user who created the activity.',
+      type: new GraphQLNonNull(UserType),
+      resolve: resolver(Activity.User),
     },
   }),
 });
 
 export const GarminActivityType = new GraphQLObjectType({
   name: 'GarminActivity',
-  description: 'An activity from Garmin Connect',
   fields: () => {
     // Omit non-Garmin fields.
     const {
@@ -73,7 +89,6 @@ export const GarminActivityType = new GraphQLObjectType({
 
 export const GarminActivityDetailType = new GraphQLObjectType({
   name: 'GarminActivityDetail',
-  description: 'A single activity detail point for a Garmin activity',
   fields: {
     sumElapsedDuration: {
       type: GraphQLInt,
@@ -119,27 +134,25 @@ export const GarminActivityDetailType = new GraphQLObjectType({
 
 export const ActivitySummaryType = new GraphQLObjectType({
   name: 'ActivitySummary',
-  description: 'The summary of a user\'s activities for a given timeframe.',
   fields: () => ({
-    ...ActivityCountField,
-    ...ActivitySumDistanceField,
+    ...CountField,
+    ...SumDistanceField,
   }),
 });
 
 export const UserActivitySummaryType = new GraphQLObjectType({
   name: 'UserActivitySummary',
-  description: 'The summary of a user\'s activities.',
   fields: () => ({
     week: {
-      type: GraphQLNonNull(ActivitySummaryType),
+      type: new GraphQLNonNull(ActivitySummaryType),
       description: 'Activity count and total distance for the current week',
     },
     month: {
-      type: GraphQLNonNull(ActivitySummaryType),
+      type: new GraphQLNonNull(ActivitySummaryType),
       description: 'Activity count and total distance for the current month',
     },
     year: {
-      type: GraphQLNonNull(ActivitySummaryType),
+      type: new GraphQLNonNull(ActivitySummaryType),
       description: 'Activity count and total distance for the current year',
     },
   }),
@@ -147,102 +160,112 @@ export const UserActivitySummaryType = new GraphQLObjectType({
 
 export const ActivitiesType = new GraphQLObjectType({
   name: 'Activities',
-  description: 'A set of activities',
   fields: {
-    ...ActivityCountField,
-    ...ActivitySumDistanceField,
-    nodes: {
-      type: new GraphQLList(ActivityType),
-      description: 'The list of activities',
-    },
+    ...CountField,
+    ...SumDistanceField,
+    ...NodesField(ActivityType),
   },
 });
 
 export const BrandType = new GraphQLObjectType({
   name: 'Brand',
-  description: 'A brand',
   fields: attributeFields(Brand),
+});
+
+export const ShoeInputType = new GraphQLInputObjectType({
+  name: 'ShoeInput',
+  fields: pick(attributeFields(Shoe), [
+    'brandId',
+    'inactive',
+    'model',
+    'notes',
+    'size',
+    'sizeType',
+    'userId',
+  ]),
 });
 
 export const ShoeType = new GraphQLObjectType({
   name: 'Shoe',
-  description: 'A shoe',
   fields: () => ({
     ...attributeFields(Shoe),
     activities: {
       type: ActivitiesType,
-      description: 'The activities associated with the shoe.',
+      resolve: resolver(Shoe.Activities, {
+        after: getActivityObject,
+      }),
     },
     brand: {
-      type: GraphQLString,
-      description: 'The name of the brand associated with the shoe.',
+      type: new GraphQLNonNull(BrandType),
+      resolve: resolver(Shoe.Brand),
     },
     name: {
       type: GraphQLString,
-      description: 'The full name of the shoe (brand + model).',
     },
     user: {
-      type: UserType,
-      description: 'The user associated with the shoe.',
+      type: new GraphQLNonNull(UserType),
+      resolve: resolver(Shoe.User),
     },
   }),
 });
 
 export const ShoesType = new GraphQLObjectType({
   name: 'Shoes',
-  description: 'A set of shoes',
   fields: {
-    count: {
-      type: new GraphQLNonNull(GraphQLInt),
-      description: 'The total number of shoes',
-    },
-    nodes: {
-      type: new GraphQLList(ShoeType),
-      description: 'The list of shoes',
-    },
+    ...CountField,
+    ...NodesField(ShoeType),
   },
 });
 
 export const UserInputType = new GraphQLInputObjectType({
   name: 'UserInput',
-  description: 'The user fields that may be created or updated.',
-  fields: () => {
-    return {
-      firstName: {
-        description: 'The user\'s first name',
-        type: GraphQLString,
-      },
-      lastName: {
-        description: 'The user\'s last name',
-        type: GraphQLString,
-      },
-      email: {
-        description: 'The user\'s email address',
-        type: GraphQLString,
-      },
-      distanceUnits: {
-        description: 'The units of distance to use (miles or kilometers)',
-        type: GraphQLInt,
-      },
-      location: {
-        description: 'The user\'s location (city & state/province)',
-        type: GraphQLString,
-      },
-      timezone: {
-        description: 'The user\'s timezone',
-        type: GraphQLString,
-      },
-    };
-  },
+  fields: pick(attributeFields(User), [
+    'firstName',
+    'lastName',
+    'email',
+    'distanceUnits',
+    'location',
+    'timezone',
+  ]),
 });
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
-  description: 'A user',
   fields: () => ({
     ...attributeFields(User),
-    activities: activitiesQuery,
-    activitySummary: userActivitySummaryQuery(),
-    shoes: shoesQuery(),
+    activities: {
+      type: new GraphQLNonNull(ActivitiesType),
+      args: {
+        limit: {
+          description: 'The number of results to return',
+          type: GraphQLInt,
+        },
+        range: {
+          description: 'Date range to query',
+          type: new GraphQLList(GraphQLString),
+        },
+      },
+      resolve: resolver(User.Activities, {
+        after: getActivityObject,
+      }),
+    },
+    // TODO: Should this just be a field on the ActivityType?
+    activitySummary: {
+      type: new GraphQLNonNull(UserActivitySummaryType),
+      resolve: resolver(User.Activities, {
+        list: true,
+        // before: (options, args, context) => {},
+        after: summarizeActivities,
+      }),
+    },
+    shoes: {
+      type: ShoesType,
+      resolve: resolver(User.Shoes, {
+        after: (results) => ({
+          count: results.length,
+          nodes: results,
+        }),
+      }),
+    },
   }),
 });

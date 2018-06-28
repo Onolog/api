@@ -1,5 +1,6 @@
 import {GraphQLObjectType, GraphQLSchema} from 'graphql';
 
+// Queries
 import activities from './queries/activitiesQuery';
 import brands from './queries/brandsQuery';
 import garminActivity from './queries/garminActivityQuery';
@@ -9,24 +10,36 @@ import user from './queries/userQuery';
 import userActivitySummary from './queries/userActivitySummaryQuery';
 import users from './queries/usersQuery';
 
-import mutations from './mutations';
+// Mutations
+// import {createActivity, deleteActivity, updateActivity} from './mutations/activityMutations';
+import {createShoe, deleteShoe, updateShoe} from './mutations/shoeMutations';
+import {login, updateUser} from './mutations/userMutations';
 
 export default new GraphQLSchema({
   mutation: new GraphQLObjectType({
     name: 'RootMutation',
-    fields: () => mutations,
+    fields: {
+      // createActivity,
+      // deleteActivity,
+      // updateActivity,
+      createShoe,
+      deleteShoe,
+      updateShoe,
+      login,
+      updateUser,
+    },
   }),
   query: new GraphQLObjectType({
     name: 'RootQuery',
-    fields: () => ({
+    fields: {
       activities,
       brands,
       garminActivity,
       garminActivityDetails,
-      shoes: shoes(),
+      shoes,
       user,
-      userActivitySummary: userActivitySummary(),
+      userActivitySummary,
       users,
-    }),
+    },
   }),
 });

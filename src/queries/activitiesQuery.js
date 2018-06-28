@@ -2,9 +2,10 @@ import {GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 
 import {resolver} from 'graphql-sequelize';
 import {Op} from 'sequelize';
 
-import {Activity, Shoe, User} from '../../models';
+import {Activity} from '../models';
 import {ActivitiesType} from '../types';
-import {getId, getSumDistance} from '../utils';
+import getId from '../utils/getId';
+import getActivityObject from '../utils/getActivityObject';
 
 const activitiesQuery = {
   type: new GraphQLNonNull(ActivitiesType),
@@ -53,28 +54,12 @@ const activitiesQuery = {
 
       return {
         ...options,
-        include: [
-          {model: Shoe},
-          {model: User},
-        ],
         // Order from newest to oldest.
         order: [['startDate', 'DESC']],
         where,
       };
     },
-    after: (results) => {
-      results = results.map((result) => {
-        result.shoe = result.Shoe;
-        result.user = result.User;
-        return result;
-      });
-
-      return {
-        count: results.length,
-        nodes: results,
-        sumDistance: getSumDistance(results),
-      };
-    },
+    after: getActivityObject,
   }),
 };
 

@@ -4,4 +4,4 @@ require('dotenv').config();
 require('babel-polyfill');
 require('babel-register');
 
-require('./server');
+require('./src/server');

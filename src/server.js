@@ -2,8 +2,9 @@ import debug from 'debug';
 import {GraphQLServer} from 'graphql-yoga';
 import jwt from 'express-jwt';
 
+import pkg from '../package';
 import models from './models';
-import schema from './graphql';
+import schema from './schema';
 
 const PROD = process.env.NODE_ENV === 'production';
 
@@ -38,6 +39,6 @@ server.express.use(jwt({
 // Sync DB and start server.
 models.sequelize.sync().then(() => {
   server.start(options, () => {
-    debug('@onolog/api:server')(`Listening on port ${options.port}`);
+    debug(`${pkg.name}:server`)(`Listening on port ${options.port}`);
   });
 });

@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       field: 'id',
     },
+    userId: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.id;
+      },
+    },
     firstName: {
       type: DataTypes.STRING(20),
       allowNull: false,
@@ -84,8 +90,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = ({Activity, Shoe, User}) => {
-    User.hasMany(Activity);
-    User.hasMany(Shoe);
+    User.Activities = User.hasMany(Activity);
+    User.Shoes = User.hasMany(Shoe);
   };
 
   return User;

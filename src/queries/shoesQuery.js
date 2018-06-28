@@ -1,11 +1,13 @@
 import {GraphQLID, GraphQLInt, GraphQLNonNull} from 'graphql';
 import {resolver} from 'graphql-sequelize';
 
-import {Activity, Brand, Shoe, User} from '../../models';
+import {Brand, Shoe} from '../models';
 import {ShoesType} from '../types';
-import {getId, getSumDistance} from '../utils';
 
-const shoesQuery = () => ({
+import getId from '../utils/getId';
+import addShoeName from '../utils/addShoeName';
+
+const shoesQuery = {
   type: new GraphQLNonNull(ShoesType),
   args: {
     limit: {
@@ -37,37 +39,16 @@ const shoesQuery = () => ({
       return {
         ...options,
         include: [
-          {model: Activity},
           {model: Brand},
-          {model: User},
         ],
         where,
       };
     },
-    after: (results) => {
-      results.map((result) => {
-        // Add the shoe's activity data.
-        const activities = result.Activities;
-        result.activities = {
-          count: activities.length,
-          sumDistance: getSumDistance(activities),
-          nodes: activities,
-        };
-
-        // Add the shoe's brand data.
-        result.brand = result.Brand.name;
-        result.name = `${result.brand} ${result.model}`;
-
-        result.user = result.User;
-        return result;
-      });
-
-      return {
-        count: results.length,
-        nodes: results,
-      };
-    },
+    after: (results) => ({
+      count: results.length,
+      nodes: results.map(addShoeName),
+    }),
   }),
-});
+};
 
 export default shoesQuery;

@@ -1,9 +1,9 @@
 import {GraphQLID, GraphQLList} from 'graphql';
 import {resolver} from 'graphql-sequelize';
 
-import {Brand} from '../../models';
+import {Brand} from '../models';
 import {BrandType} from '../types';
-import {getId} from '../utils';
+import getId from '../utils/getId';
 
 export default {
   type: new GraphQLList(BrandType),
@@ -15,13 +15,9 @@ export default {
   },
   resolve: resolver(Brand, {
     list: true,
-    before: (options, args, context) => {
-      const id = getId(args.id);
-
-      return {
-        ...options,
-        where: id ? {id} : {},
-      };
-    },
+    before: (options, {id}, context) => ({
+      ...options,
+      where: id ? {id: getId(id)} : {},
+    }),
   }),
 };
