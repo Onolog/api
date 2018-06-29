@@ -16,8 +16,8 @@ export default new GraphQLObjectType({
     ...attributeFields(Activity),
     details: {
       type: new GraphQLList(GarminActivityDetailType),
-      resolve: (options, args, context) => (
-        getGarminActivityDetails(options.garminActivityId)
+      resolve: ({garminActivityId}, args, context) => (
+        garminActivityId ? getGarminActivityDetails(garminActivityId) : null
       ),
     },
     shoe: {
