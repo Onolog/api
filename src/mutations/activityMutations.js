@@ -1,4 +1,4 @@
-import {GraphQLBoolean, GraphQLID, GraphQLNonNull} from 'graphql';
+import {GraphQLID, GraphQLNonNull} from 'graphql';
 
 import {Activity} from '../models';
 import {ActivityInputType, ActivityType} from '../types';
@@ -15,7 +15,7 @@ export const createActivity = {
 };
 
 export const deleteActivity = {
-  type: new GraphQLNonNull(GraphQLBoolean),
+  type: new GraphQLNonNull(GraphQLID),
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLID),

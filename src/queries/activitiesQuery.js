@@ -4,13 +4,12 @@ import {Op} from 'sequelize';
 
 import {Activity} from '../models';
 import {ActivitiesType} from '../types';
-import getId from '../utils/getId';
 import getActivityObject from '../utils/getActivityObject';
 
 const activitiesQuery = {
   type: new GraphQLNonNull(ActivitiesType),
   args: {
-    activityId: {
+    id: {
       description: 'ID of an activity',
       type: GraphQLID,
     },
@@ -34,22 +33,10 @@ const activitiesQuery = {
   resolve: resolver(Activity, {
     list: true,
     before: (options, args, context) => {
-      const activityId = getId(args.activityId);
-      const shoeId = getId(args.shoeId);
-      const userId = getId(args.userId);
-
-      const where = {};
+      const where = options.where || {};
 
       if (args.range) {
         where.startDate = {[Op.between]: args.range};
-      }
-
-      if (activityId) {
-        where.id = activityId;
-      } else if (shoeId) {
-        where.shoeId = shoeId;
-      } else if (userId) {
-        where.userId = userId;
       }
 
       return {

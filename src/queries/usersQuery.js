@@ -3,7 +3,6 @@ import {resolver} from 'graphql-sequelize';
 
 import {User} from '../models';
 import {UserType} from '../types';
-import getId from '../utils/getId';
 
 const usersQuery = {
   type: new GraphQLList(UserType),
@@ -15,13 +14,6 @@ const usersQuery = {
   },
   resolve: resolver(User, {
     list: true,
-    before: (options, args, context) => {
-      const id = getId(args.id);
-      return {
-        ...options,
-        where: id ? {id} : {},
-      };
-    },
   }),
 };
 

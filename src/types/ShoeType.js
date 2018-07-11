@@ -23,7 +23,7 @@ export default new GraphQLObjectType({
       resolve: resolver(Shoe.Brand),
     },
     name: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
     user: {
       type: new GraphQLNonNull(UserType),

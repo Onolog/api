@@ -7,7 +7,6 @@ import GarminActivityDetailType from './GarminActivityDetailType';
 import ShoeType from './ShoeType';
 import UserType from './UserType';
 
-import addShoeName from '../utils/addShoeName';
 import getGarminActivityDetails from '../utils/getGarminActivityDetails';
 
 export default new GraphQLObjectType({
@@ -27,7 +26,6 @@ export default new GraphQLObjectType({
           ...options,
           include: [{model: Brand}],
         }),
-        after: addShoeName,
       }),
     },
     user: {

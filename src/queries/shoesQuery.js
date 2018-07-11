@@ -4,9 +4,6 @@ import {resolver} from 'graphql-sequelize';
 import {Brand, Shoe} from '../models';
 import {ShoesType} from '../types';
 
-import getId from '../utils/getId';
-import addShoeName from '../utils/addShoeName';
-
 const shoesQuery = {
   type: new GraphQLNonNull(ShoesType),
   args: {
@@ -14,7 +11,7 @@ const shoesQuery = {
       description: 'The number of results to return',
       type: GraphQLInt,
     },
-    shoeId: {
+    id: {
       description: 'ID of shoe',
       type: GraphQLID,
     },
@@ -25,28 +22,13 @@ const shoesQuery = {
   },
   resolve: resolver(Shoe, {
     list: true,
-    before: (options, args, context) => {
-      const shoeId = getId(args.shoeId);
-      const userId = getId(args.userId);
-
-      let where = {};
-      if (shoeId) {
-        where.id = shoeId;
-      } else if (userId) {
-        where.userId = userId;
-      }
-
-      return {
-        ...options,
-        include: [
-          {model: Brand},
-        ],
-        where,
-      };
-    },
+    before: (options, args, context) => ({
+      ...options,
+      include: [{model: Brand}],
+    }),
     after: (results) => ({
       count: results.length,
-      nodes: results.map(addShoeName),
+      nodes: results,
     }),
   }),
 };

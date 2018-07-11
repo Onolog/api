@@ -5,7 +5,6 @@ import {Op} from 'sequelize';
 
 import {Activity} from '../models';
 import {UserActivitySummaryType} from '../types';
-import getId from '../utils/getId';
 import summarizeActivities from '../utils/summarizeActivities';
 
 const userActivitySummaryQuery = {
@@ -19,8 +18,6 @@ const userActivitySummaryQuery = {
   resolve: resolver(Activity, {
     list: true,
     before: (options, args, context) => {
-      const userId = getId(args.userId);
-
       // Get all activities for the current year and filter down later.
       const startDate = moment().startOf('year').subtract(1, 'day').format();
       const endDate = moment().endOf('year').add(1, 'day').format();
@@ -28,10 +25,8 @@ const userActivitySummaryQuery = {
       return {
         ...options,
         where: {
-          userId,
-          startDate: {
-            [Op.between]: [startDate, endDate],
-          },
+          userId: args.userId,
+          startDate: {[Op.between]: [startDate, endDate]},
         },
       };
     },

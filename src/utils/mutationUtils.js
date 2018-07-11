@@ -1,28 +1,34 @@
 import assertCanEdit from './assertCanEdit';
 
-export const createRecord = (Model) => async(root, args, context) => {
+export const createRecord = (Model, options) => async(root, args, context) => {
   try {
-    return await Model.create(args.input);
+    const instance = await Model.create(args.input);
+    return Model.findById(instance.id, options);
   } catch (err) {
     throw Error(err);
   }
 };
 
-export const updateRecord = (Model) => async(root, args, context) => {
+export const updateRecord = (Model, options) => async(root, args, context) => {
   try {
     const instance = await Model.findById(args.id);
     assertCanEdit(context, instance.userId);
-    return await instance.update(args.input);
+    await instance.update(args.input);
+
+    // Re-fetch the record to make sure we have the right associations.
+    // TODO: How to make this more efficient?
+    return await Model.findById(args.id, options);
   } catch (err) {
     throw Error(err);
   }
 };
 
-export const deleteRecord = (Model) => async(root, args, context) => {
+export const deleteRecord = (Model, options) => async(root, {id}, context) => {
   try {
-    const instance = await Model.findById(args.id);
+    const instance = await Model.findById(id);
     assertCanEdit(context, instance.userId);
-    return await instance.destroy();
+    await instance.destroy();
+    return id;
   } catch (err) {
     throw Error(err);
   }

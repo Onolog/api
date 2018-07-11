@@ -21,17 +21,24 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER(10).UNSIGNED,
       allowNull: false,
-      defaultValue: '0',
       field: 'user_id',
+    },
+    name: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.get('Brand').name} ${this.model}`;
+      },
     },
     inactive: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
+      defaultValue: 0,
       field: 'inactive',
     },
     sizeType: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
+      defaultValue: 0,
       field: 'size_type',
     },
     size: {

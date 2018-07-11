@@ -1,6 +1,6 @@
-import {GraphQLBoolean, GraphQLID, GraphQLNonNull} from 'graphql';
+import {GraphQLID, GraphQLNonNull} from 'graphql';
 
-import {Shoe} from '../models';
+import {Brand, Shoe} from '../models';
 import {ShoeInputType, ShoeType} from '../types';
 import {createRecord, deleteRecord, updateRecord} from '../utils/mutationUtils';
 
@@ -11,11 +11,13 @@ export const createShoe = {
       type: new GraphQLNonNull(ShoeInputType),
     },
   },
-  resolve: createRecord(Shoe),
+  resolve: createRecord(Shoe, {
+    include: [{model: Brand}],
+  }),
 };
 
 export const deleteShoe = {
-  type: new GraphQLNonNull(GraphQLBoolean),
+  type: new GraphQLNonNull(GraphQLID),
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLID),
@@ -34,5 +36,7 @@ export const updateShoe = {
       type: new GraphQLNonNull(ShoeInputType),
     },
   },
-  resolve: updateRecord(Shoe),
+  resolve: updateRecord(Shoe, {
+    include: [{model: Brand}],
+  }),
 };
