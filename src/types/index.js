@@ -1,5 +1,6 @@
 /* eslint-disable object-curly-spacing */
 export ActivitiesType from './ActivitiesType';
+export ActivityInputType from './ActivityInputType';
 export ActivitySummaryType from './ActivitySummaryType';
 export ActivityType from './ActivityType';
 export BrandType from './BrandType';

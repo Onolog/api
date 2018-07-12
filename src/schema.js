@@ -11,7 +11,7 @@ import userActivitySummary from './queries/userActivitySummaryQuery';
 import users from './queries/usersQuery';
 
 // Mutations
-// import {createActivity, deleteActivity, updateActivity} from './mutations/activityMutations';
+import {createActivity, deleteActivity, updateActivity} from './mutations/activityMutations';
 import {createShoe, deleteShoe, updateShoe} from './mutations/shoeMutations';
 import {login, updateUser} from './mutations/userMutations';
 
@@ -19,9 +19,9 @@ export default new GraphQLSchema({
   mutation: new GraphQLObjectType({
     name: 'RootMutation',
     fields: {
-      // createActivity,
-      // deleteActivity,
-      // updateActivity,
+      createActivity,
+      deleteActivity,
+      updateActivity,
       createShoe,
       deleteShoe,
       updateShoe,
