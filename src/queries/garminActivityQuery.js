@@ -44,7 +44,7 @@ function garminUrlToActivity(activity) {
     elevationLoss: metersToFeet(elevationLoss),
     garminActivityId: activity.activityId,
     maxHr: maxHR,
-    startDate: moment(startTimeLocal).tz(timezone).format(),
+    startDate: moment.tz(startTimeLocal, timezone).format(),
     timezone,
   };
 }
