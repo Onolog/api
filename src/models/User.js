@@ -38,12 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       field: 'email',
     },
-    password: {
-      type: DataTypes.STRING(40),
-      allowNull: true,
-      defaultValue: '',
-      field: 'password',
-    },
     created: {
       type: DataTypes.DATE,
       allowNull: false,
