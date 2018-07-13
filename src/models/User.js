@@ -38,26 +38,25 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       field: 'email',
     },
-    created: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created',
-    },
     createdAt: {
       type: DataTypes.STRING(30),
       allowNull: false,
       field: 'created_at',
     },
+    updatedAt: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+      field: 'updated_at',
+    },
+    created: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      field: 'created',
+    },
     lastLogin: {
       type: DataTypes.DATE,
       allowNull: true,
       field: 'last_login',
-    },
-    updatedAt: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return this.lastLogin;
-      },
     },
     location: {
       type: DataTypes.STRING(100),
@@ -78,7 +77,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'users',
     timestamps: true,
-    updatedAt: 'last_login',
   });
 
   User.associate = ({Activity, Shoe, User}) => {
