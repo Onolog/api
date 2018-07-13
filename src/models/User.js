@@ -50,10 +50,8 @@ module.exports = (sequelize, DataTypes) => {
       field: 'created',
     },
     createdAt: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return this.created;
-      },
+      type: DataTypes.STRING(30),
+      allowNull: false,
     },
     lastLogin: {
       type: DataTypes.DATE,
@@ -85,7 +83,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'users',
     timestamps: true,
-    createdAt: 'created',
     updatedAt: 'last_login',
   });
 
