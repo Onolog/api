@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'friends',
     },
     garminActivityId: {
-      type: DataTypes.INTEGER(11).UNSIGNED,
+      type: DataTypes.STRING(20),
       allowNull: true,
       field: 'garmin_activity_id',
     },
