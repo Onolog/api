@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "DEBUG=@onolog/api:* nodemon index.js",
     "lint": "eslint .",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
     "start": "node index.js"
   },
   "dependencies": {
