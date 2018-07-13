@@ -11,5 +11,5 @@ module.exports = {
     return queryInterface.changeColumn('activities', 'garmin_activity_id', {
       type: Sequelize.DataTypes.INTEGER(11).UNSIGNED,
     });
-  }
+  },
 };
