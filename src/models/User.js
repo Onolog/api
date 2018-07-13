@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: {
       type: DataTypes.STRING(30),
       allowNull: false,
+      field: 'created_at',
     },
     lastLogin: {
       type: DataTypes.DATE,
