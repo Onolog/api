@@ -8,6 +8,7 @@ import UserActivitySummaryType from './UserActivitySummaryType';
 
 import {User} from '../models';
 import getActivityObject from '../utils/getActivityObject';
+import prepareActivityQuery from '../utils/prepareActivityQuery';
 import summarizeActivities from '../utils/summarizeActivities';
 
 export default new GraphQLObjectType({
@@ -21,16 +22,16 @@ export default new GraphQLObjectType({
           description: 'The number of results to return',
           type: GraphQLInt,
         },
+        order: {
+          type: GraphQLString,
+        },
         range: {
           description: 'Date range to query',
           type: new GraphQLList(GraphQLString),
         },
       },
       resolve: resolver(User.Activities, {
-        before: (options, {range}, context) => ({
-          ...options,
-          where: range ? {startDate: {[Op.between]: range}} : {},
-        }),
+        before: prepareActivityQuery,
         after: getActivityObject,
       }),
     },
