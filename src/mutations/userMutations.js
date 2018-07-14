@@ -1,4 +1,5 @@
 import {GraphQLID, GraphQLNonNull} from 'graphql';
+import moment from 'moment-timezone';
 
 import {User} from '../models';
 import {UserInputType, UserType} from '../types';
@@ -16,8 +17,16 @@ export const login = {
   },
   resolve: async(root, {id, input}, context, info) => {
     try {
+      const dateString = moment().format();
       const user = await User.findOrCreate({
-        defaults: {...input, id},
+        defaults: {
+          ...input,
+          created: dateString,
+          createdAt: dateString,
+          id,
+          lastLogin: dateString,
+          updatedAt: dateString,
+        },
         where: {id},
       });
       return user.length ? user[0] : user;
