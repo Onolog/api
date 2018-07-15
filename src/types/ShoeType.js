@@ -6,7 +6,7 @@ import BrandType from './BrandType';
 import UserType from './UserType';
 
 import {Shoe} from '../models';
-import getActivityObject from '../utils/getActivityObject';
+import resolveActivities from '../utils/resolveActivities';
 
 export default new GraphQLObjectType({
   name: 'Shoe',
@@ -14,9 +14,7 @@ export default new GraphQLObjectType({
     ...attributeFields(Shoe),
     activities: {
       type: ActivitiesType,
-      resolve: resolver(Shoe.Activities, {
-        after: getActivityObject,
-      }),
+      resolve: resolveActivities(Shoe.Activities),
     },
     brand: {
       type: new GraphQLNonNull(BrandType),

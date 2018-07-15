@@ -10,7 +10,7 @@ const garminActivityDetailsQuery = {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  resolve: async(options, args, context) => (
+  resolve: (options, args, context) => (
     getGarminActivityDetails(args.garminActivityId)
   ),
 };

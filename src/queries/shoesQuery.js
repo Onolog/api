@@ -1,16 +1,13 @@
-import {GraphQLID, GraphQLInt, GraphQLNonNull} from 'graphql';
+import {GraphQLID, GraphQLNonNull} from 'graphql';
 import {resolver} from 'graphql-sequelize';
 
 import {Brand, Shoe} from '../models';
 import {ShoesType} from '../types';
+import {LimitField} from '../types/fields';
 
 const shoesQuery = {
   type: new GraphQLNonNull(ShoesType),
   args: {
-    limit: {
-      description: 'The number of results to return',
-      type: GraphQLInt,
-    },
     id: {
       description: 'ID of shoe',
       type: GraphQLID,
@@ -19,6 +16,7 @@ const shoesQuery = {
       description: 'ID of user',
       type: GraphQLID,
     },
+    ...LimitField,
   },
   resolve: resolver(Shoe, {
     list: true,

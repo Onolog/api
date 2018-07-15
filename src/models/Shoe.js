@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.VIRTUAL,
       get() {
-        return `${this.get('Brand').name} ${this.model}`;
+        const brand = this.get('Brand');
+        const brandName = (brand && brand.name) || '';
+        return `${brandName} ${this.model}`;
       },
     },
     inactive: {
