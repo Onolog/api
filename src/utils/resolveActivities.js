@@ -16,6 +16,10 @@ export default (model, options={}) => resolver(model, {
       where.startDate = {[Op.between]: args.range};
     }
 
+    if (args.filter) {
+      where.notes = {[Op.like]: `%${args.filter}%`};
+    }
+
     return {...options, order, where};
   },
   after: (results) => ({

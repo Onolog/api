@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
+import {GraphQLID, GraphQLNonNull, GraphQLString} from 'graphql';
 
 import {Activity} from '../models';
 import {ActivitiesType} from '../types';
@@ -20,6 +20,10 @@ const activitiesQuery = {
     userId: {
       description: 'ID of user',
       type: GraphQLID,
+    },
+    filter: {
+      description: 'String on which to filter the query.',
+      type: GraphQLString,
     },
     ...LimitField,
     ...OrderField,
