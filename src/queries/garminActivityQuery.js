@@ -1,5 +1,4 @@
 import {GraphQLID, GraphQLNonNull} from 'graphql';
-import fetch from 'isomorphic-fetch';
 
 import {GarminActivityType} from '../types';
 import {GARMIN_ACTIVITY_URL} from '../constants';

@@ -22,7 +22,6 @@
     "graphql-relay": "^0.5.5",
     "graphql-sequelize": "^8.1.3",
     "graphql-yoga": "^1.14.6",
-    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
     "moment-timezone": "^0.5.20",
     "mysql2": "^1.5.3",
@@ -36,6 +35,6 @@
     "eslint-config-ericgio": "^2.2.0"
   },
   "engines": {
-    "node": "8.9.0"
+    "node": "^8.9.0"
   }
 }
