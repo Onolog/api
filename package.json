@@ -10,11 +10,11 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@babel/core": "7.0.0-beta.51",
-    "@babel/polyfill": "7.0.0-beta.51",
-    "@babel/preset-env": "7.0.0-beta.51",
-    "@babel/preset-stage-1": "7.0.0-beta.51",
-    "@babel/register": "7.0.0-beta.51",
+    "@babel/core": "7.1.2",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/polyfill": "7.0.0",
+    "@babel/preset-env": "7.1.0",
+    "@babel/register": "7.0.0",
     "debug": "^4.0.1",
     "dotenv": "^6.0.0",
     "express-jwt": "^5.3.1",
@@ -30,7 +30,7 @@
     "sequelize-cli": "^4.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.5",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.6.0",
     "eslint-config-ericgio": "^3.0.0"
   },
