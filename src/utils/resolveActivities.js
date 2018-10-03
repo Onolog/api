@@ -1,11 +1,11 @@
 import {resolver} from 'graphql-sequelize';
 import {Op} from 'sequelize';
 
-const getSumDistance = (results=[]) => (
+const getSumDistance = (results = []) => (
   +results.reduce((total, result) => total + +result.distance, 0).toFixed(2)
 );
 
-export default (model, options={}) => resolver(model, {
+export default (model, options = {}) => resolver(model, {
   ...options,
   before: (options, args, context) => {
     // Order from newest to oldest by default.

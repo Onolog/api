@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import {FEET_PER_METER, METERS_PER_MILE} from '../constants';
 
-const metersToMiles = (distanceInMeters, precision=2) => {
+const metersToMiles = (distanceInMeters, precision = 2) => {
   const miles = distanceInMeters / METERS_PER_MILE;
 
   // Round to x decimal places.

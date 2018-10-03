@@ -13,7 +13,7 @@ const normalizeData = (data) => {
   return details;
 };
 
-export default async(garminActivityId, params={}) => {
+export default async(garminActivityId, params = {}) => {
   try {
     const url = `${GARMIN_ACTIVITY_URL}/${garminActivityId}/details`;
     const res = await fetch(`${url}?maxChartSize=1000`);
