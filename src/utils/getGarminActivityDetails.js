@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 import {GARMIN_ACTIVITY_URL} from '../constants';
 
 const normalizeData = (data) => {

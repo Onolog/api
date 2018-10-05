@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 import {GraphQLID, GraphQLNonNull} from 'graphql';
 
 import {GarminActivityType} from '../types';
@@ -13,10 +14,14 @@ const garminActivityQuery = {
     },
   },
   resolve: async(options, {garminActivityId}, context) => {
-    const res = await fetch(`${GARMIN_ACTIVITY_URL}/${garminActivityId}`);
-    const data = await res.json();
+    try {
+      const res = await fetch(`${GARMIN_ACTIVITY_URL}/${garminActivityId}`);
+      const data = await res.json();
+      return garminUrlToActivity(data);
+    } catch (err) {
+      throw Error(err);
+    }
 
-    return garminUrlToActivity(data);
   },
 };
 
