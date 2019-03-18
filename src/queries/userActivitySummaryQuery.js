@@ -1,10 +1,10 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
-import {resolver} from 'graphql-sequelize';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
+import { resolver } from 'graphql-sequelize';
 import moment from 'moment-timezone';
-import {Op} from 'sequelize';
+import { Op } from 'sequelize';
 
-import {Activity} from '../models';
-import {UserActivitySummaryType} from '../types';
+import { Activity } from '../models';
+import { UserActivitySummaryType } from '../types';
 import summarizeActivities from '../utils/summarizeActivities';
 
 const userActivitySummaryQuery = {
@@ -26,7 +26,7 @@ const userActivitySummaryQuery = {
         ...options,
         where: {
           userId: args.userId,
-          startDate: {[Op.between]: [startDate, endDate]},
+          startDate: { [Op.between]: [startDate, endDate] },
         },
       };
     },

@@ -1,6 +1,6 @@
-import {GraphQLID, GraphQLList, GraphQLNonNull} from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
 
-import {GarminActivityDetailType} from '../types';
+import { GarminActivityDetailType } from '../types';
 import getGarminActivityDetails from '../utils/getGarminActivityDetails';
 
 const garminActivityDetailsQuery = {

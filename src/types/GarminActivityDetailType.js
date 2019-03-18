@@ -1,4 +1,4 @@
-import {GraphQLInt, GraphQLFloat, GraphQLObjectType, GraphQLString} from 'graphql';
+import { GraphQLInt, GraphQLFloat, GraphQLObjectType, GraphQLString } from 'graphql';
 
 export default new GraphQLObjectType({
   name: 'GarminActivityDetail',

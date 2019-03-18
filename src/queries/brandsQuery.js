@@ -1,8 +1,8 @@
-import {GraphQLID, GraphQLList} from 'graphql';
-import {resolver} from 'graphql-sequelize';
+import { GraphQLID, GraphQLList } from 'graphql';
+import { resolver } from 'graphql-sequelize';
 
-import {Brand} from '../models';
-import {BrandType} from '../types';
+import { Brand } from '../models';
+import { BrandType } from '../types';
 
 export default {
   type: new GraphQLList(BrandType),

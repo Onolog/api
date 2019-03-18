@@ -1,4 +1,4 @@
-import {GraphQLNonNull, GraphQLObjectType} from 'graphql';
+import { GraphQLNonNull, GraphQLObjectType } from 'graphql';
 
 import ActivitySummaryType from './ActivitySummaryType';
 

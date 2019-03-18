@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const UserModel = sequelize.define('User', {
     id: {
       type: DataTypes.STRING(20),
       allowNull: false,
@@ -79,10 +80,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
   });
 
-  User.associate = ({Activity, Shoe, User}) => {
+  UserModel.associate = ({ Activity, Shoe, User }) => {
     User.Activities = User.hasMany(Activity);
     User.Shoes = User.hasMany(Shoe);
   };
 
-  return User;
+  return UserModel;
 };

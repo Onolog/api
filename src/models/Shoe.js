@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 module.exports = (sequelize, DataTypes) => {
-  const Shoe = sequelize.define('Shoe', {
+  const ShoeModel = sequelize.define('Shoe', {
     id: {
       type: DataTypes.INTEGER(10).UNSIGNED,
       allowNull: false,
@@ -57,11 +58,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'shoes',
   });
 
-  Shoe.associate = ({Activity, Brand, Shoe, User}) => {
-    Shoe.Brand = Shoe.belongsTo(Brand, {foreignKey: 'brand_id'});
-    Shoe.User = Shoe.belongsTo(User, {foreignKey: 'user_id'});
-    Shoe.Activities = Shoe.hasMany(Activity, {foreignKey: 'shoe_id'});
+  ShoeModel.associate = ({ Activity, Brand, Shoe, User }) => {
+    Shoe.Brand = Shoe.belongsTo(Brand, { foreignKey: 'brand_id' });
+    Shoe.User = Shoe.belongsTo(User, { foreignKey: 'user_id' });
+    Shoe.Activities = Shoe.hasMany(Activity, { foreignKey: 'shoe_id' });
   };
 
-  return Shoe;
+  return ShoeModel;
 };

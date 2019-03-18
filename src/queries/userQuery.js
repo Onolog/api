@@ -1,8 +1,8 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
-import {resolver} from 'graphql-sequelize';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
+import { resolver } from 'graphql-sequelize';
 
-import {User} from '../models';
-import {UserType} from '../types';
+import { User } from '../models';
+import { UserType } from '../types';
 
 const userQuery = {
   type: UserType,

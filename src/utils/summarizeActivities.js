@@ -17,9 +17,11 @@ export default (activities) => {
     };
   });
 
-  return activities.reduce((accum, activity) => {
-    const {distance, startDate, timezone} = activity;
+  return activities.reduce((accumulator, activity) => {
+    const { distance, startDate, timezone } = activity;
     const start = moment(startDate).tz(timezone);
+
+    const acc = accumulator;
 
     PERIODS.forEach((period) => {
       if (
@@ -30,13 +32,13 @@ export default (activities) => {
           INCLUSIVE,
         )
       ) {
-        accum[period] = {
-          count: accum[period].count + 1,
-          sumDistance: accum[period].sumDistance + +distance,
+        acc[period] = {
+          count: acc[period].count + 1,
+          sumDistance: acc[period].sumDistance + +distance,
         };
       }
     });
 
-    return accum;
+    return acc;
   }, summary);
 };

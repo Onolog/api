@@ -1,7 +1,7 @@
 import getId from './getId';
 
 export default (context, userId) => {
-  const {user} = context;
+  const { user } = context;
   if (user && (getId(user.id) === getId(userId) || user.admin)) {
     return;
   }

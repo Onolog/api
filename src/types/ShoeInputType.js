@@ -1,8 +1,8 @@
-import {GraphQLInputObjectType} from 'graphql';
-import {attributeFields} from 'graphql-sequelize';
-import {pick} from 'lodash';
+import { GraphQLInputObjectType } from 'graphql';
+import { attributeFields } from 'graphql-sequelize';
+import { pick } from 'lodash';
 
-import {Shoe} from '../models';
+import { Shoe } from '../models';
 
 export default new GraphQLInputObjectType({
   name: 'ShoeInput',

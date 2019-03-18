@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLSchema} from 'graphql';
+import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 
 // Queries
 import activities from './queries/activitiesQuery';
@@ -11,9 +11,9 @@ import userActivitySummary from './queries/userActivitySummaryQuery';
 import users from './queries/usersQuery';
 
 // Mutations
-import {createActivity, deleteActivity, updateActivity} from './mutations/activityMutations';
-import {createShoe, deleteShoe, updateShoe} from './mutations/shoeMutations';
-import {login, updateUser} from './mutations/userMutations';
+import { createActivity, deleteActivity, updateActivity } from './mutations/activityMutations';
+import { createShoe, deleteShoe, updateShoe } from './mutations/shoeMutations';
+import { login, updateUser } from './mutations/userMutations';
 
 export default new GraphQLSchema({
   mutation: new GraphQLObjectType({

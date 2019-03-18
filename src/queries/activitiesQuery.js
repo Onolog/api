@@ -1,8 +1,8 @@
-import {GraphQLID, GraphQLNonNull, GraphQLString} from 'graphql';
+import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
 
-import {Activity} from '../models';
-import {ActivitiesType} from '../types';
-import {LimitField, OrderField, RangeField} from '../types/fields';
+import { Activity } from '../models';
+import { ActivitiesType } from '../types';
+import { LimitField, OrderField, RangeField } from '../types/fields';
 
 import resolveActivities from '../utils/resolveActivities';
 

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-import {GARMIN_ACTIVITY_URL} from '../constants';
+import { GARMIN_ACTIVITY_URL } from '../constants';
 
 const normalizeData = (data) => {
   // Normalize data structure.
@@ -15,7 +15,7 @@ const normalizeData = (data) => {
   return details;
 };
 
-export default async(garminActivityId, params = {}) => {
+export default async (garminActivityId, params = {}) => {
   try {
     const url = `${GARMIN_ACTIVITY_URL}/${garminActivityId}/details`;
     const res = await fetch(`${url}?maxChartSize=1000`);

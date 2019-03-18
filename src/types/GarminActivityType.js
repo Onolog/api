@@ -1,7 +1,7 @@
-import {GraphQLID, GraphQLNonNull, GraphQLObjectType} from 'graphql';
-import {attributeFields} from 'graphql-sequelize';
+import { GraphQLID, GraphQLNonNull, GraphQLObjectType } from 'graphql';
+import { attributeFields } from 'graphql-sequelize';
 
-import {Activity} from '../models';
+import { Activity } from '../models';
 
 export default new GraphQLObjectType({
   name: 'GarminActivity',
@@ -11,9 +11,9 @@ export default new GraphQLObjectType({
       id,
       friends,
       notes,
-      shoe_id,
+      shoe_id, /* eslint-disable-line camelcase */
       shoeId,
-      user_id,
+      user_id, /* eslint-disable-line camelcase */
       userId,
       ...activityFields
     } = attributeFields(Activity);

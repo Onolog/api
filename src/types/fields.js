@@ -1,4 +1,4 @@
-import {GraphQLFloat, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
+import { GraphQLFloat, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString } from 'graphql';
 
 export const CountField = {
   count: {

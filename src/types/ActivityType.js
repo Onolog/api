@@ -1,7 +1,7 @@
-import {GraphQLList, GraphQLNonNull, GraphQLObjectType} from 'graphql';
-import {attributeFields, resolver} from 'graphql-sequelize';
+import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql';
+import { attributeFields, resolver } from 'graphql-sequelize';
 
-import {Activity, Brand} from '../models';
+import { Activity, Brand } from '../models';
 
 import GarminActivityDetailType from './GarminActivityDetailType';
 import ShoeType from './ShoeType';
@@ -15,7 +15,7 @@ export default new GraphQLObjectType({
     ...attributeFields(Activity),
     details: {
       type: new GraphQLList(GarminActivityDetailType),
-      resolve: ({garminActivityId}, args, context) => (
+      resolve: ({ garminActivityId }, args, context) => (
         garminActivityId ? getGarminActivityDetails(garminActivityId) : null
       ),
     },
@@ -24,7 +24,7 @@ export default new GraphQLObjectType({
       resolve: resolver(Activity.Shoe, {
         before: (options, args, context) => ({
           ...options,
-          include: [{model: Brand}],
+          include: [{ model: Brand }],
         }),
       }),
     },

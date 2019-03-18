@@ -1,8 +1,8 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-import {Activity} from '../models';
-import {ActivityInputType, ActivityType} from '../types';
-import {createRecord, deleteRecord, updateRecord} from '../utils/mutationUtils';
+import { Activity } from '../models';
+import { ActivityInputType, ActivityType } from '../types';
+import { createRecord, deleteRecord, updateRecord } from '../utils/mutationUtils';
 
 export const createActivity = {
   type: ActivityType,

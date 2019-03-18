@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 module.exports = (sequelize, DataTypes) => {
-  const Brand = sequelize.define('Brand', {
+  const BrandModel = sequelize.define('Brand', {
     id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
@@ -16,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'brands',
   });
 
-  Brand.associate = ({Brand, Shoe}) => {
+  BrandModel.associate = ({ Brand, Shoe }) => {
     Brand.Shoes = Brand.hasMany(Shoe);
   };
 
-  return Brand;
+  return BrandModel;
 };

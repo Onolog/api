@@ -1,9 +1,9 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
-import {resolver} from 'graphql-sequelize';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
+import { resolver } from 'graphql-sequelize';
 
-import {Brand, Shoe} from '../models';
-import {ShoesType} from '../types';
-import {LimitField} from '../types/fields';
+import { Brand, Shoe } from '../models';
+import { ShoesType } from '../types';
+import { LimitField } from '../types/fields';
 
 const shoesQuery = {
   type: new GraphQLNonNull(ShoesType),
@@ -22,7 +22,7 @@ const shoesQuery = {
     list: true,
     before: (options, args, context) => ({
       ...options,
-      include: [{model: Brand}],
+      include: [{ model: Brand }],
     }),
     after: (results) => ({
       count: results.length,

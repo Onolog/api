@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 module.exports = (sequelize, DataTypes) => {
-  const Activity = sequelize.define('Activity', {
+  const ActivityModel = sequelize.define('Activity', {
     id: {
       type: DataTypes.INTEGER(10).UNSIGNED,
       allowNull: false,
@@ -90,11 +91,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'activities',
   });
 
-  Activity.associate = ({Activity, Shoe, Split, User}) => {
-    Activity.User = Activity.belongsTo(User, {foreignKey: 'user_id'});
-    Activity.Shoe = Activity.belongsTo(Shoe, {foreignKey: 'shoe_id'});
-    Activity.Splits = Activity.hasMany(Split, {foreignKey: 'activity_id'});
+  ActivityModel.associate = ({ Activity, Shoe, Split, User }) => {
+    Activity.User = Activity.belongsTo(User, { foreignKey: 'user_id' });
+    Activity.Shoe = Activity.belongsTo(Shoe, { foreignKey: 'shoe_id' });
+    Activity.Splits = Activity.hasMany(Split, { foreignKey: 'activity_id' });
   };
 
-  return Activity;
+  return ActivityModel;
 };

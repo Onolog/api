@@ -2,14 +2,22 @@
   "env": {
     "es6": true,
     "mocha": true,
-    "node": true
+    "node": true,
   },
-  "extends": ["ericgio"],
+  "extends": ["ericgio-base"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 8,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
-  }
+      "experimentalObjectRestSpread": true,
+    },
+  },
+  "rules": {
+    "sort-keys": "off",
+  },
+  "settings": {
+    "import/ignore": [
+      "src/models/index.js", // Allow dynamic importing of models.
+    ],
+  },
 }

@@ -1,9 +1,9 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 import moment from 'moment-timezone';
 
-import {User} from '../models';
-import {UserInputType, UserType} from '../types';
-import {updateRecord} from '../utils/mutationUtils';
+import { User } from '../models';
+import { UserInputType, UserType } from '../types';
+import { updateRecord } from '../utils/mutationUtils';
 
 export const login = {
   type: UserType,
@@ -15,7 +15,7 @@ export const login = {
       type: new GraphQLNonNull(UserInputType),
     },
   },
-  resolve: async(root, {id, input}, context, info) => {
+  resolve: async (root, { id, input }, context, info) => {
     try {
       const dateString = moment().format();
       const user = await User.findOrCreate({
@@ -27,7 +27,7 @@ export const login = {
           lastLogin: dateString,
           updatedAt: dateString,
         },
-        where: {id},
+        where: { id },
       });
       return user.length ? user[0] : user;
     } catch (err) {

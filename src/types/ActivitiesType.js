@@ -1,7 +1,7 @@
-import {GraphQLObjectType} from 'graphql';
+import { GraphQLObjectType } from 'graphql';
 
 import ActivityType from './ActivityType';
-import {CountField, NodesField, SumDistanceField} from './fields';
+import { CountField, NodesField, SumDistanceField } from './fields';
 
 export default new GraphQLObjectType({
   name: 'Activities',

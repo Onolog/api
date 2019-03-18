@@ -1,8 +1,8 @@
-import {GraphQLInputObjectType} from 'graphql';
-import {attributeFields} from 'graphql-sequelize';
-import {pick} from 'lodash';
+import { GraphQLInputObjectType } from 'graphql';
+import { attributeFields } from 'graphql-sequelize';
+import { pick } from 'lodash';
 
-import {Activity} from '../models';
+import { Activity } from '../models';
 
 export default new GraphQLInputObjectType({
   name: 'ActivityInput',

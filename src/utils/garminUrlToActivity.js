@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import {FEET_PER_METER, METERS_PER_MILE} from '../constants';
+import { FEET_PER_METER, METERS_PER_MILE } from '../constants';
 
 const metersToMiles = (distanceInMeters, precision = 2) => {
   const miles = distanceInMeters / METERS_PER_MILE;
@@ -8,7 +8,7 @@ const metersToMiles = (distanceInMeters, precision = 2) => {
   // See:
   //  - https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript
   //  - https://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding/32605063#32605063
-  return +(Math.round(+(miles + 'e' + precision)) + 'e' + -precision);
+  return +(`${Math.round(+(`${miles}e${precision}`))}e${-precision}`);
 };
 
 const metersToFeet = (distanceInMeters) => (

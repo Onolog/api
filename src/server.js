@@ -1,5 +1,5 @@
 import debug from 'debug';
-import {GraphQLServer} from 'graphql-yoga';
+import { GraphQLServer } from 'graphql-yoga';
 import jwt from 'express-jwt';
 
 import pkg from '../package';
@@ -8,7 +8,7 @@ import schema from './schema';
 
 const PROD = process.env.NODE_ENV === 'production';
 
-const context = ({request, response, connection}) => ({
+const context = ({ request, response, connection }) => ({
   models,
   user: request.user,
 });

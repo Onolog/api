@@ -1,11 +1,11 @@
-import {GraphQLNonNull, GraphQLObjectType, GraphQLString} from 'graphql';
-import {attributeFields, resolver} from 'graphql-sequelize';
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
+import { attributeFields, resolver } from 'graphql-sequelize';
 
 import ActivitiesType from './ActivitiesType';
 import BrandType from './BrandType';
 import UserType from './UserType';
 
-import {Shoe} from '../models';
+import { Shoe } from '../models';
 import resolveActivities from '../utils/resolveActivities';
 
 export default new GraphQLObjectType({

@@ -1,8 +1,8 @@
-import {GraphQLID, GraphQLNonNull} from 'graphql';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 
-import {Brand, Shoe} from '../models';
-import {ShoeInputType, ShoeType} from '../types';
-import {createRecord, deleteRecord, updateRecord} from '../utils/mutationUtils';
+import { Brand, Shoe } from '../models';
+import { ShoeInputType, ShoeType } from '../types';
+import { createRecord, deleteRecord, updateRecord } from '../utils/mutationUtils';
 
 export const createShoe = {
   type: ShoeType,
@@ -12,7 +12,7 @@ export const createShoe = {
     },
   },
   resolve: createRecord(Shoe, {
-    include: [{model: Brand}],
+    include: [{ model: Brand }],
   }),
 };
 
@@ -37,6 +37,6 @@ export const updateShoe = {
     },
   },
   resolve: updateRecord(Shoe, {
-    include: [{model: Brand}],
+    include: [{ model: Brand }],
   }),
 };

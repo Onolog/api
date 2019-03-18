@@ -1,6 +1,6 @@
 import assertCanEdit from './assertCanEdit';
 
-export const createRecord = (Model, options) => async(root, args, context) => {
+export const createRecord = (Model, options) => async (root, args, context) => {
   try {
     const instance = await Model.create(args.input);
     return Model.findById(instance.id, options);
@@ -9,7 +9,7 @@ export const createRecord = (Model, options) => async(root, args, context) => {
   }
 };
 
-export const updateRecord = (Model, options) => async(root, args, context) => {
+export const updateRecord = (Model, options) => async (root, args, context) => {
   try {
     const instance = await Model.findById(args.id);
     assertCanEdit(context, instance.userId);
@@ -23,13 +23,15 @@ export const updateRecord = (Model, options) => async(root, args, context) => {
   }
 };
 
-export const deleteRecord = (Model, options) => async(root, {id}, context) => {
-  try {
-    const instance = await Model.findById(id);
-    assertCanEdit(context, instance.userId);
-    await instance.destroy();
-    return id;
-  } catch (err) {
-    throw Error(err);
+export const deleteRecord = (Model, options) => (
+  async (root, { id }, context) => {
+    try {
+      const instance = await Model.findById(id);
+      assertCanEdit(context, instance.userId);
+      await instance.destroy();
+      return id;
+    } catch (err) {
+      throw Error(err);
+    }
   }
-};
+);
