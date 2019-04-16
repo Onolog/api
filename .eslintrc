@@ -13,6 +13,7 @@
     },
   },
   "rules": {
+    "import/no-cycle": "off",
     "sort-keys": "off",
   },
   "settings": {
