@@ -2,7 +2,7 @@ import debug from 'debug';
 import { GraphQLServer } from 'graphql-yoga';
 import jwt from 'express-jwt';
 
-import pkg from '../package';
+import pkg from '../package.json';
 import models from './models';
 import schema from './schema';
 
