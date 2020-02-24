@@ -75,6 +75,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '0',
       field: 'distance_units',
     },
+    /**
+     * Store the Facebook login id, which is different from the canonical fbid.
+     */
+    providerId: {
+      type: DataTypes.STRING(32),
+      allowNull: true,
+      unique: true,
+      field: 'provider_id',
+    },
   }, {
     tableName: 'users',
     timestamps: true,
