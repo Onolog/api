@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'created_at',
     },
     updatedAt: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.DATE,
       allowNull: false,
       field: 'updated_at',
     },
