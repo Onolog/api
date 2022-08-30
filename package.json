@@ -27,7 +27,7 @@
     "graphql-yoga": "^1.14.6",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.10",
-    "moment-timezone": "^0.5.20",
+    "moment-timezone": "^0.5.35",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.2",
     "sequelize": "^5.1.0",
